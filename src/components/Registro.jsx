@@ -18,50 +18,63 @@ const Registro = ({ onRegister }) => {
       setError('Por favor, completa todos los campos.');
       return;
     }
+
+    // Validación básica de formato de correo
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Ingresa un correo electrónico válido.');
+      return;
+    }
+
+    const edadNum = parseInt(edad, 10);
+    if (isNaN(edadNum) || edadNum < 18) {
+      setError('Debes ser mayor de 18 años para registrarte.');
+      return;
+    }
+    if (edadNum > 100) {
+      setError('Por favor, ingresa una edad válida.');
+      return;
+    }
+
     if (password.length < 6) {
       setError('La contraseña debe tener al menos 6 caracteres.');
       return;
     }
-    if (parseInt(edad) < 18) {
-      setError('Debes ser mayor de 18 años para registrarte.');
-      return;
-    }
 
-    // LÓGICA DE DESCUENTO
-    // Si el correo contiene @duocuc.cl Y la edad es mayor a 50
-    const tieneDescuento = email.includes('@duocuc.cl') && parseInt(edad) > 50;
+    // LÓGICA DE DESCUENTO: Solo con tener correo @duocuc.cl
+    const tieneDescuento = email.toLowerCase().includes('@duocuc.cl');
 
     // Guardamos al usuario en la memoria de la App
-    onRegister({ email, edad: parseInt(edad), tieneDescuento });
+    onRegister({ email, edad: edadNum, tieneDescuento });
     
-    alert(tieneDescuento ? '¡Bienvenido! Tienes un 20% de descuento activado.' : '¡Registro exitoso! Bienvenido a la comunidad.');
+    alert(tieneDescuento ? '¡Bienvenido! Tienes un 20% de descuento DuocUC activado.' : '¡Registro exitoso! Bienvenido a la comunidad.');
     navigate('/'); // Redirige al inicio
   };
 
   return (
     <Container className="mt-5 mb-5 d-flex justify-content-center">
-      <Card style={{ width: '100%', maxWidth: '400px' }} className="shadow-sm border-0 bg-light p-4">
-        <h3 className="text-center mb-4">Únete a la Comunidad</h3>
+      <Card style={{ width: '100%', maxWidth: '420px' }} className="auth-card shadow-sm p-4">
+        <h3 className="text-center mb-4" style={{ fontWeight: 600 }}>Únete a la Comunidad</h3>
         
         {error && <Alert variant="danger">{error}</Alert>}
 
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
-            <Form.Label>Correo Electrónico</Form.Label>
+            <Form.Label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--fs-gray-700)' }}>Correo Electrónico</Form.Label>
             <Form.Control type="email" placeholder="ejemplo@duocuc.cl" value={email} onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-3">
-            <Form.Label>Edad</Form.Label>
-            <Form.Control type="number" placeholder="Ej: 51" value={edad} onChange={(e) => setEdad(e.target.value)} />
+            <Form.Label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--fs-gray-700)' }}>Edad</Form.Label>
+            <Form.Control type="number" placeholder="Ej: 22" value={edad} onChange={(e) => setEdad(e.target.value)} />
           </Form.Group>
 
           <Form.Group className="mb-4">
-            <Form.Label>Contraseña</Form.Label>
+            <Form.Label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--fs-gray-700)' }}>Contraseña</Form.Label>
             <Form.Control type="password" placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} />
           </Form.Group>
           
-          <Button variant="dark" type="submit" className="w-100">Registrarse</Button>
+          <Button className="btn-add-cart w-100" type="submit">Registrarse</Button>
         </Form>
       </Card>
     </Container>

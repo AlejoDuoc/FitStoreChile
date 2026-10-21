@@ -12,6 +12,7 @@ import Footer from './components/Footer.jsx'; // 1. IMPORTAMOS EL FOOTER
 function App() {
   const [cart, setCart] = useState([]);
   const [usuario, setUsuario] = useState(null);
+  const [busqueda, setBusqueda] = useState('');
 
   const addToCart = (producto) => setCart([...cart, producto]);
   const removeFromCart = (indexToRemove) => setCart(cart.filter((_, index) => index !== indexToRemove));
@@ -22,12 +23,16 @@ function App() {
       {/* 2. Le decimos al contenedor principal que ocupe todo el alto de la pantalla (min-vh-100) */}
       <div className="d-flex flex-column min-vh-100">
         
-        <Header cartCount={cart.length} /> 
+        <Header 
+          cartCount={cart.length} 
+          busqueda={busqueda} 
+          onBusquedaChange={setBusqueda} 
+        /> 
         
         {/* flex-grow-1 empuja el footer hacia abajo */}
         <main className="container mt-4 flex-grow-1">
           <Routes>
-            <Route path="/" element={<ProductList onAddToCart={addToCart} />} />
+            <Route path="/" element={<ProductList onAddToCart={addToCart} busqueda={busqueda} />} />
             <Route path="/categorias" element={<Categorias onAddToCart={addToCart} />} />
             <Route path="/carrito" element={<Carrito cart={cart} onRemove={removeFromCart} onClear={clearCart} usuario={usuario} />} />
             <Route path="/nosotros" element={<Nosotros />} />
