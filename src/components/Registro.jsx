@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Registro = ({ onRegister }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [edad, setEdad] = useState('');
+  const [rol, setRol] = useState('cliente');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Evita que la página se recargue
+    e.preventDefault();
     setError('');
 
-    // CONTROL DE EXCEPCIONES (Validaciones)
     if (!email || !password || !edad) {
       setError('Por favor, completa todos los campos.');
       return;
     }
 
-    // Validación básica de formato de correo
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       setError('Ingresa un correo electrónico válido.');
@@ -41,43 +40,106 @@ const Registro = ({ onRegister }) => {
       return;
     }
 
-    // LÓGICA DE DESCUENTO: Solo con tener correo @duocuc.cl
-    const tieneDescuento = email.toLowerCase().includes('@duocuc.cl');
+    const tieneDescuento = email.toLowerCase().includes('@duocuc.cl') || rol === 'admin';
 
-    // Guardamos al usuario en la memoria de la App
-    onRegister({ email, edad: edadNum, tieneDescuento });
+    onRegister({
+      email,
+      nombre: email.split('@')[0],
+      edad: edadNum,
+      rol,
+      tieneDescuento
+    });
     
-    alert(tieneDescuento ? '¡Bienvenido! Tienes un 20% de descuento DuocUC activado.' : '¡Registro exitoso! Bienvenido a la comunidad.');
-    navigate('/'); // Redirige al inicio
+    navigate('/');
   };
 
   return (
-    <Container className="mt-5 mb-5 d-flex justify-content-center">
-      <Card style={{ width: '100%', maxWidth: '420px' }} className="auth-card shadow-sm p-4">
-        <h3 className="text-center mb-4" style={{ fontWeight: 600 }}>Únete a la Comunidad</h3>
-        
-        {error && <Alert variant="danger">{error}</Alert>}
-
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--fs-gray-700)' }}>Correo Electrónico</Form.Label>
-            <Form.Control type="email" placeholder="ejemplo@duocuc.cl" value={email} onChange={(e) => setEmail(e.target.value)} />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--fs-gray-700)' }}>Edad</Form.Label>
-            <Form.Control type="number" placeholder="Ej: 22" value={edad} onChange={(e) => setEdad(e.target.value)} />
-          </Form.Group>
-
-          <Form.Group className="mb-4">
-            <Form.Label style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--fs-gray-700)' }}>Contraseña</Form.Label>
-            <Form.Control type="password" placeholder="Mínimo 6 caracteres" value={password} onChange={(e) => setPassword(e.target.value)} />
-          </Form.Group>
+    <div className="auth-page-view py-5">
+      <Container className="d-flex justify-content-center my-4">
+        <Card style={{ width: '100%', maxWidth: '460px' }} className="auth-card-modern p-4">
+          <div className="text-center mb-4">
+            <h2 className="auth-card-title text-white">Crear Cuenta</h2>
+            <p className="auth-card-subtitle">
+              Regístrate para comprar y gestionar tu perfil en FitStore Chile
+            </p>
+          </div>
           
-          <Button className="btn-add-cart w-100" type="submit">Registrarse</Button>
-        </Form>
-      </Card>
-    </Container>
+          {error && <Alert variant="danger">{error}</Alert>}
+
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label className="auth-label">
+                Correo Electrónico
+              </Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="ejemplo@correo.cl"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="auth-input-field"
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label className="auth-label">
+                Edad
+              </Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Ej: 24"
+                value={edad}
+                onChange={(e) => setEdad(e.target.value)}
+                className="auth-input-field"
+                required
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label className="auth-label">
+                Tipo de Usuario / Rol
+              </Form.Label>
+              <Form.Select
+                value={rol}
+                onChange={(e) => setRol(e.target.value)}
+                className="auth-input-field"
+              >
+                <option value="cliente">Cliente (Comprador habitual)</option>
+                <option value="admin">Administrador (Gestión de stock, precios y catálogo)</option>
+              </Form.Select>
+              <Form.Text className="text-light opacity-75 small">
+                Selecciona Administrador si deseas probar el panel de control de inventario.
+              </Form.Text>
+            </Form.Group>
+
+            <Form.Group className="mb-4">
+              <Form.Label className="auth-label">
+                Contraseña
+              </Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Mínimo 6 caracteres"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="auth-input-field"
+                required
+              />
+            </Form.Group>
+            
+            <Button className="btn-auth-primary w-100 mb-3" type="submit">
+              Completar Registro
+            </Button>
+
+            <div className="text-center pt-2">
+              <span className="small text-muted me-1">¿Ya tienes una cuenta?</span>
+              <Link to="/login" className="small text-white fw-bold text-decoration-underline">
+                Inicia sesión aquí
+              </Link>
+            </div>
+          </Form>
+        </Card>
+      </Container>
+    </div>
   );
 };
 

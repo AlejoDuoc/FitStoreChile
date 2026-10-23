@@ -1,51 +1,62 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Nosotros = () => {
   return (
-    <Container className="mt-5 mb-5">
-      <Row className="justify-content-center">
-        <Col md={8} className="text-center about-section">
-          <h2 className="section-title mb-3">Sobre FitStore Chile</h2>
-          <p className="lead" style={{ color: 'var(--fs-gray-700)', fontSize: '1.1rem', lineHeight: '1.8' }}>
-            Somos tu tienda de confianza especializada en suplementos, ropa técnica deportiva y accesorios de entrenamiento. 
-            Nuestra misión es acompañarte en cada etapa de tu disciplina física, ofreciéndote productos seleccionados 
-            con los más altos estándares de calidad para potenciar tu rendimiento.
-          </p>
-        </Col>
-      </Row>
+    <div className="about-page-view py-5">
+      <Container className="my-4">
+        {/* Encabezado Principal de Alta Legibilidad */}
+        <Row className="justify-content-center text-center mb-5">
+          <Col md={9} lg={8}>
+            <h1 className="about-main-title text-white mb-3">Sobre FitStore Chile</h1>
+            <p className="about-lead-description">
+              Somos una tienda especializada en suplementación de grado analítico, textil de alto calibre y equipamiento forjado para atletas de fuerza y acondicionamiento físico.
+            </p>
+            <p className="about-lead-sub">
+              Fundada en Santiago por deportistas que comprenden la disciplina del entrenamiento diario, desterramos las fórmulas con aditivos ocultos y la indumentaria comercial frágil para ofrecer piezas con garantía real de durabilidad y transparencia.
+            </p>
+          </Col>
+        </Row>
 
-      {/* Pilares / Valores minimalistas */}
-      <Row className="mt-5 g-4 text-center">
-        <Col md={4}>
-          <div className="p-4 h-100" style={{ border: '1px solid var(--fs-gray-300)', borderRadius: 'var(--fs-radius)', background: 'var(--fs-white)' }}>
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}></div>
-            <h5 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Calidad Certificada</h5>
-            <p style={{ color: 'var(--fs-gray-700)', fontSize: '0.9rem', margin: 0 }}>
-              Suplementos originales y testeados con los mejores ingredientes del mercado fitness.
-            </p>
-          </div>
-        </Col>
-        <Col md={4}>
-          <div className="p-4 h-100" style={{ border: '1px solid var(--fs-gray-300)', borderRadius: 'var(--fs-radius)', background: 'var(--fs-white)' }}>
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}></div>
-            <h5 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Diseño & Comodidad</h5>
-            <p style={{ color: 'var(--fs-gray-700)', fontSize: '0.9rem', margin: 0 }}>
-              Indumentaria con tecnología DryFit y calces modernos para entrenar con total libertad.
-            </p>
-          </div>
-        </Col>
-        <Col md={4}>
-          <div className="p-4 h-100" style={{ border: '1px solid var(--fs-gray-300)', borderRadius: 'var(--fs-radius)', background: 'var(--fs-white)' }}>
-            <div style={{ fontSize: '2rem', marginBottom: '1rem' }}></div>
-            <h5 style={{ fontWeight: 600, marginBottom: '0.5rem' }}>Despachos Rápidos</h5>
-            <p style={{ color: 'var(--fs-gray-700)', fontSize: '0.9rem', margin: 0 }}>
-              Envíos a todo Chile con seguimiento en tiempo real y soporte dedicado.
-            </p>
-          </div>
-        </Col>
-      </Row>
-    </Container>
+        {/* Pilares & Valores con Tarjetas de Alto Contraste */}
+        <Row className="g-4 text-start mt-3">
+          <Col md={4}>
+            <div className="about-card-modern">
+              <h3 className="about-card-title">Calidad Certificada</h3>
+              <p className="about-card-text">
+                Cada suplemento declara con exactitud matemática el 100% de sus ingredientes activos. Sin azúcares añadidos ni rellenos industriales.
+              </p>
+            </div>
+          </Col>
+
+          <Col md={4}>
+            <div className="about-card-modern">
+              <h3 className="about-card-title">Confección & Resistencia</h3>
+              <p className="about-card-text">
+                Prendas estructuradas con patronaje atlético drop-shoulder y costuras cuádruples diseñadas para soportar la fricción de barras y mancuernas.
+              </p>
+            </div>
+          </Col>
+
+          <Col md={4}>
+            <div className="about-card-modern">
+              <h3 className="about-card-title">Inventario Físico Real</h3>
+              <p className="about-card-text">
+                Gestión estricta de existencias con stock sincronizado en tiempo real. Lo que ves en el catálogo cuenta con disponibilidad física inmediata.
+              </p>
+            </div>
+          </Col>
+        </Row>
+
+        {/* Cierre / Enlace al catálogo */}
+        <div className="text-center mt-5 pt-4">
+          <Link to="/catalogo" className="btn-chapter-solid">
+            Explorar Nuestro Catálogo
+          </Link>
+        </div>
+      </Container>
+    </div>
   );
 };
 

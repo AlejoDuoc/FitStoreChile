@@ -24,23 +24,24 @@ const Footer = () => {
           <Col md={4} className="mb-3">
             <h5>Contacto</h5>
             <ul className="list-unstyled">
-              <li>📍 Santiago, Chile</li>
-              <li>📧 contacto@fitstore.cl</li>
-              <li>📱 +56 9 1234 5678</li>
+              <li>Santiago, Chile</li>
+              <li>contacto@fitstore.cl</li>
+              <li>+56 9 1234 5678</li>
             </ul>
           </Col>
         </Row>
-        <hr />
-        <Row>
-          <Col className="text-center">
-            <p className="mb-0" style={{ fontSize: '0.8rem' }}>
-              &copy; {new Date().getFullYear()} FitStore Chile. Todos los derechos reservados.
-            </p>
-             <p>
-              Alejandro Izquierdo, Pedro Tome.
-            </p>
-          </Col>
-        </Row>
+        <div className="pt-4">
+          <Row>
+            <Col className="text-center">
+              <p className="mb-0" style={{ fontSize: '0.8rem' }}>
+                &copy; {new Date().getFullYear()} FitStore Chile. Todos los derechos reservados.
+              </p>
+               <p>
+                Alejandro Izquierdo, Pedro Tome.
+              </p>
+            </Col>
+          </Row>
+        </div>
       </Container>
     </footer>
   );
