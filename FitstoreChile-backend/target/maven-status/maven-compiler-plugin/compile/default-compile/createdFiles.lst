@@ -1,0 +1,17 @@
+com\fitstore\backend\config\SwaggerConfig.class
+com\fitstore\backend\controller\ProductoController.class
+com\fitstore\backend\controller\UsuarioController.class
+com\fitstore\backend\model\Usuario.class
+com\fitstore\backend\repository\UsuarioRepository.class
+com\fitstore\backend\FitstoreBackendApplication.class
+com\fitstore\backend\controller\AuthController.class
+com\fitstore\backend\security\JwtUtil.class
+com\fitstore\backend\security\JwtAuthFilter.class
+com\fitstore\backend\dto\LoginRequest.class
+com\fitstore\backend\service\ProductoService.class
+com\fitstore\backend\dto\RegistroRequest.class
+com\fitstore\backend\model\Producto.class
+com\fitstore\backend\service\AuthService.class
+com\fitstore\backend\dto\AuthResponse.class
+com\fitstore\backend\repository\ProductoRepository.class
+com\fitstore\backend\config\SecurityConfig.class
